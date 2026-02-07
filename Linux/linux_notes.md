@@ -1,0 +1,68 @@
+# Linux Command Notes
+
+## Structure of Linux Command
+
+**Syntax:**
+```text
+command [options] [arguments]
+```
+
+**Examples:**
+
+1. Command without options 
+
+    ```bash
+    cat home.html
+    ```
+
+    Explanation:
+    Prints the contents of the file.
+
+2. Command with options
+    ```bash
+    cat -n home.html
+
+    cat --number home.html
+    ```
+
+    Explanation:
+    Prints the contents of the file with line numbers.
+
+3. Command with optional arguments
+    ```bash
+    ls
+    ```
+
+    Explanation:
+    Prints the contents of the current directory.
+
+    ```bash
+    ncal
+    ```
+
+    Explanation:
+    Displays the calendar of the current month with today’s date highlighted.
+
+    ```bash
+    <!-- With two arguments -->
+
+    ncal 7 2022
+    ```
+
+    Explanation:
+    Displays the calendar for July 2022.
+
+    ```bash
+    <!-- Command with arguments and option. -->
+    ncal july 2026 -w
+    ncal july 2026 -wM
+    ```
+
+    Explanation:
+    * <mark>-w</mark>  ->  Displays week numbers.
+    * <mark>-M</mark>  ->  Week starts on Monday.
+    Displays the calendar for July 2026 with week number.
+
+    Remember : **Options are case sensitive**
+    
+<hr>
