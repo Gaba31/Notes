@@ -76,7 +76,7 @@ These are nothing but the roadblocks for this expansion and your goal is minimiz
 
 * **High Availability and Fault Tolerance** -> It means that your application is designed and configured to be availabe even if there is an hardware of software failure and will always be responding to the customer and traffic .
 
-    **Example 1** : Let say user is accessing an app (accesing through load balancer or DNS) but for simplicity called as APP which has two backend server VM1 and VM2 and these servers are connected to master DB and another one is slave database (Read Only) , data is replicated syncronously in both of the database . It is designed is such a way even if there is a VM failure application will still be able to repond back to the customer using VM2. When VM2 shuts down then load on VM1 will automatically increases and to avoid VM1 to crash we can put then inside VMSS (VM Scale Set). It has a template so whenever there is a failure let say VM2 goes down using this template over here VMSS will provission a new VM . Now App will list to VM1 and VM3. VMSS make sure we always have 2 instances listning to app frontend .
+    **Example 1** : Let say user is accessing an app (accesing through load balancer or DNS) but for simplicity called as APP which has two backend server VM1 and VM2 and these servers are connected to master DB and another one is slave database (Read Only) , data is replicated syncronously in both of the database . It is designed is such a way even if there is a VM failure application will still be able to repond back to the customer using VM2. When VM2 shuts down then load on VM1 will automatically increases and to avoid VM1 to crash we can put them inside VMSS (VM Scale Set). It has a template so whenever there is a failure let say VM2 goes down using this template over here VMSS will provission a new VM . Now App will list to VM1 and VM3. VMSS make sure we always have 2 instances listning to app frontend .
 
     ```mermaid
     flowchart 
@@ -94,20 +94,50 @@ These are nothing but the roadblocks for this expansion and your goal is minimiz
         VM1 -. Failover .-> VM2
     ```
 
-    **Example 2** : Let say user is accessing an app (accesing through load balancer or DNS) but for simplicity called as APP which has two backend server VM1 and VM2 and these servers are connected to master DB and another one is slave database (Read Only) , data is replicated syncronously in both of the database . It is designed is such a way even if there is a VM failure application will still be able to repond back to the customer using VM2.
+* **Scalabity** -> The ability of system to adjust according to the demand . 
+
+    **Example 1** : Let say user is accessing an app and connected to one backend server VM1 . Today let say there is no load on server right now , hence whenever you access the application it is able to get the response back from the app .
+
+    But as soon as user count increases and all are trying to access at same time then the server will be on high load means high CPU and memory utilization.
+
+    In this scenario App will crash and let to bad customer experience which will affect revenue .
 
     ```mermaid
-    flowchart 
+    flowchart LR
+    U1[User]
+    U2[User]
+    U3[User]
+    U4[User]
 
-        U[User] --> APP[Application / Load Balancer]
+    U1 --> APP[Application]
+    U2 --> APP
+    U3 --> APP
+    U4 --> APP
 
-        APP --> VM1[VM1]
-        APP --> VM2[VM2]
+    APP --> VM1[Backend Server VM1]
 
-        VM1 --> DB1[(DB1 - Primary)]
-        VM2 --> DB2[(DB2 - Replica)]
-
-        DB1 <-- Replication --> DB2
-
-        VM1 -. Failover .-> VM2
+    VM1 --> LOAD[High Load = High CPU & Memory Usage]
     ```
+
+    ### Summary:
+    - Multiple users access the application simultaneously.
+    - Application routes all traffic to a single backend server.
+    - VM1 becomes overloaded.
+    - CPU and memory usage increase.
+    - Application performance degrades or crashes.
+
+
+    #### It can be fixed by either vertical Scalling or horizontal scaling . Replacing existing infra with bigger infrastructure . When there will be vertical scaling there will be downtime which customer will face when switching to higher infra .The time b/w switching from one infra to another is nothing but downtime .So we can't do vertical scalling 10 times a day and that way it is not feasible solution .
+
+    #### But with horizontal scalling it can be fixed because there will be multiple VM's like VM1,VM2,VM3 and uses according to their need and that's why it is preferred more over Vertical Scalling . Eg for my reference -> like some car has functionallity to shifts from 4 cylinder to 2 cylinder when they require less power something like that concept works here .
+
+* **Elasticity** -> Similar to Scalablity . Elasticity happens automatically , instead of someone manually scalling up or scalling down on the system there should be a mechnism like in AWS we have Aurus scaling groups wwhich takes care of this feature . In Azure it is done by VM Scale Set and in GCP , it is done by Instance Groups . These all services makes sure , system will be able to scale more or less based on the demand .
+
+* **Cost Effectiveness** -> Two important concepts :  
+    * Pricing Calculator -> We can estimate the price of Azure services like let say you need to have a VM , 12gb memory and 80gb of HDD and us central1 and all the features like availability , performance etc and based on that this pricing calculator will provide you an estimated cost . 
+
+    * Total cost of ownership -> It will give you an estimate cost and tell you how much you will save when you will shift from on premises to cloud.You will get a summary report .
+
+    <hr>
+
+    
