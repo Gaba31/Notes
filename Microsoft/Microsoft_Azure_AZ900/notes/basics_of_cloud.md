@@ -33,6 +33,7 @@ These are nothing but the roadblocks for this expansion and your goal is minimiz
 
 #### So buying hardware is old school. Renting everything is cloud computing all about .
 
+## `Cloud Service Model (What service you get)`
 
 | Aspect | IaaS (Infrastructure as a Service) | PaaS (Platform as a Service) | SaaS (Software as a Service) |
 |---|---|---|---|
@@ -60,7 +61,7 @@ These are nothing but the roadblocks for this expansion and your goal is minimiz
 <hr>
 
 ## `Difference b/w Public , Private and Hybrid clouds ?`
-
+These are Cloud Deployment Model (Where it runs).
 | Aspect | Public Cloud | Private Cloud | Hybrid Cloud |
 |---|---|---|---|
 | Description | Resources are shared among multiple users, and customers pay only for the resources they use. Example : Azure, GCP and many more .| Resources are dedicated to a single organization, providing greater control and security. They own datacenters and help customer to host on their datacenter. | Combines both public and private clouds in an interconnected environment. |
@@ -140,4 +141,32 @@ These are nothing but the roadblocks for this expansion and your goal is minimiz
 
     <hr>
 
-    
+## `Resource Hierarchy in Azure :`
+!["Hierarchy_in_azure"](../screenshots/hierarchy_in_azure.png)
+
+At root level -> Azure Account and by default a subscription is created for you and can have multiple additional subscription created.
+
+Eg: Company wants to have a subscription for sales dept and a different subscription for IT dept .
+
+
+These subscription can have mutiple resource groups . For eg : keep your env seperated from these resource groups dev and uat in seperate resource group and prod env in seperate resource group . Resource groups are nothing but logical seperation of resource together and when you apply any permission at resource group level it will be inherited by resources level as well . Same way if any thing applied at subscription level it will be inherited at resource group and resources level as well .
+
+**This follows a top down approach .**
+
+Each Resource group can have one or more resources but one resource can only be part of one resource group .
+
+## `Management Group Hierarchy in Azure :`
+
+!["management_groups_in_azure"](../screenshots/management_groups.png)
+
+At root level -> Root management group 
+
+Then we have different management group inside root and those groups can have more management groups inside them or can have subscriptions .
+
+
+Creating a management group is completely an optional task but creating at least on subscription is mandatory .
+
+
+## `Combine Hierarchy :`
+
+!["management_groups_in_azure"](../screenshots/combine_hierarchy.png.png)
